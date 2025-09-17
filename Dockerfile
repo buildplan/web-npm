@@ -1,11 +1,13 @@
 # Nginx version
 ARG NGINX_VERSION=1.29-alpine-slim
 
-# Stage 1: builder stage
+# Stage 1: The "builder" stage
 FROM nginx:${NGINX_VERSION} AS builder
+
 RUN mkdir -p /var/cache/nginx && \
     touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/cache/nginx /var/run/nginx.pid /var/log
+
 
 # Stage 2: distroless image
 FROM gcr.io/distroless/static-debian12
